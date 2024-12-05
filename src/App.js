@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import Home from "./screens/Home";
+import Navbar from "./components/Navbar";
+import Footer from "./components/Footer";
+import FAQs from "./components/FAQs";
+import PricingPage from "./screens/PricingPage";
+import SupportPage from "./screens/SupportPage";
+import { BrowserRouter as Router, Routes, Route, useLocation } from "react-router-dom";
 
 function App() {
+  const location = useLocation();
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="flex flex-col min-h-screen">
+      <Navbar />
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/pricing" element={<PricingPage />} />
+          <Route path="/support" element={<SupportPage />} />
+        </Routes>
+      </main>
+      {location.pathname !== "/support" && <FAQs />}
+      <Footer />
     </div>
   );
 }
 
-export default App;
+export default function AppWithRouter() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  );
+}
