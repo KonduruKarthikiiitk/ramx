@@ -14,39 +14,7 @@ const Home = () => {
 // Search Functionality 
 // ## Display Yes or No : Yes in case of Search found in items , else no
 // by eod
-// const onFetchData = async (e) => {
-//   e.preventDefault();
 
-//   const search = 'yourSearchQuery';  // Replace with actual search query
-
-//   const url = `https://mocki.io/v1/007194d7-1e15-4060-9e61-0a52cdfa4ac3?query=${search}`;
-//   try {
-//     const response = await fetch(url, {
-//       method: "GET",
-//       headers: {
-//         'Content-Type': 'application/json'
-//       }
-//     });
-
-//     const data = await response.json();
-
-//     console.log(data); 
-//     if (data && Array.isArray(data)) {
-//       // Check if any item matches the search query
-//       const searchResults = data.filter(item => item.name && item.name.toLowerCase().includes(search.toLowerCase()));
-//       console.log(searchResults)
-//       if (searchResults.length > 0) {
-//         console.log('Search results found:', searchResults);
-//       } else {
-//         console.log('No results found for the search term.');
-//       }
-//     } else {
-//       console.log('Invalid data format received');
-//     }
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 const onFetchData = async (e) => {
   e.preventDefault();
   if(!search){
