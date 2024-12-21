@@ -5,7 +5,6 @@ const FAQs = () => {
   const [openQuestion, setOpenQuestion] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
 
-  // Filter the faqData based on the search query
   const filteredFaqs = faqData.filter((faq) =>
     faq.question.toLowerCase().includes(searchQuery.toLowerCase())
   );

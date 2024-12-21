@@ -8,10 +8,77 @@ import { useState, useEffect } from "react";
 import Carousel from "../components/Carousel";
 
 const Home = () => {
-  const [isYearly, setIsYearly] = useState(false);
-  const togglePlan = () => {
-    setIsYearly((prev) => !prev);
-  };
+  const [search,setSeach] = useState("");
+
+//   ## API Integeration 
+// Search Functionality 
+// ## Display Yes or No : Yes in case of Search found in items , else no
+// by eod
+// const onFetchData = async (e) => {
+//   e.preventDefault();
+
+//   const search = 'yourSearchQuery';  // Replace with actual search query
+
+//   const url = `https://mocki.io/v1/007194d7-1e15-4060-9e61-0a52cdfa4ac3?query=${search}`;
+//   try {
+//     const response = await fetch(url, {
+//       method: "GET",
+//       headers: {
+//         'Content-Type': 'application/json'
+//       }
+//     });
+
+//     const data = await response.json();
+
+//     console.log(data); 
+//     if (data && Array.isArray(data)) {
+//       // Check if any item matches the search query
+//       const searchResults = data.filter(item => item.name && item.name.toLowerCase().includes(search.toLowerCase()));
+//       console.log(searchResults)
+//       if (searchResults.length > 0) {
+//         console.log('Search results found:', searchResults);
+//       } else {
+//         console.log('No results found for the search term.');
+//       }
+//     } else {
+//       console.log('Invalid data format received');
+//     }
+//   } catch (error) {
+//     console.error(error);
+//   }
+// }
+const onFetchData = async (e) => {
+  e.preventDefault();
+  if(!search){
+    return alert("Enter to search")
+  }
+  const url = `https://mocki.io/v1/007194d7-1e15-4060-9e61-0a52cdfa4ac3?query=${search}`;
+
+  try {
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    console.log(response)
+    const data = await response.json(); 
+    console.log(data)
+    if (search && data && Array.isArray(data.items)) {
+
+      const searchResults = data.items.filter(item => {
+        return item.name.toLowerCase() === search.toLowerCase()
+      });
+      if (searchResults.length > 0) {
+        alert("Yes")
+      } else {
+        alert("No")
+      }
+    } 
+  } catch (error) {
+    console.error('Error fetching data:', error)
+  }
+}
 
   return (
     <div className="bg-gray-50">
@@ -25,9 +92,16 @@ const Home = () => {
           </button>
           <input
             type="text"
+            name="search"
+            value={search}
+            onChange={(e)=>setSeach(e.target.value)}
             placeholder="Curious? Let AI Uncover the Answers!"
             className="border border-gray-200 rounded-r-lg py-2 px-4 w-full max-w-md"
           />
+          <button 
+          className="p-3 bg-[rgba(245,79,53,1)] text-white rounded-md "
+          onClick={onFetchData}
+          >Search</button>
         </div>
         <h2 className="font-[Urbanist] text-[rgba(25,26,21,1)] text-[30px] md:text-[60px] font-extrabold leading-[40px] md:leading-[60px] text-center mb-4">
           Maximize Your Impact <br />

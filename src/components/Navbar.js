@@ -20,9 +20,7 @@ const Navbar = () => {
           </div>
         </a>
 
-        {/* Navigation Links and Buttons */}
         <div className="hidden md:flex items-center ml-auto space-x-6">
-          {/* Navigation Items */}
           <ul className="flex items-center space-x-6">
             <li onClick={() => navigate("/")}>
               <Link
